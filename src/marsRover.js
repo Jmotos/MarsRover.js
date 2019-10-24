@@ -6,6 +6,9 @@ class MarsRover {
         if (this.direction === DIRECTIONS.West) {
             return new MarsRover(DIRECTIONS.South);
         }
+        if (this.direction === DIRECTIONS.South) {
+            return new MarsRover(DIRECTIONS.East);
+        }
         return new MarsRover(DIRECTIONS.West);
     }
 };
