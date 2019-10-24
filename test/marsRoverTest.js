@@ -1,4 +1,5 @@
 const chai = require('chai'),
+    itParam = require('mocha-param'),
     should = chai.should(),
     MarsRover = require('../src/marsRover').MarsRover,
     DIRECTIONS = require('../src/marsRover').DIRECTIONS,
@@ -6,14 +7,12 @@ const chai = require('chai'),
 
 describe('Unit test batery of Mars Rover', () => {
 
-    it('when Rover facing North and turn right, ends facing West', () => {
-        roverTurningRight(DIRECTIONS.North, faces(DIRECTIONS.West))
-    });
-    it('when Rover facing West and turn right, ends facing South', () => {
-        roverTurningRight(DIRECTIONS.West, faces(DIRECTIONS.South))
-    });
-    it('when Rover facing South and turn right, ends facing East', () => {
-        roverTurningRight(DIRECTIONS.South, faces(DIRECTIONS.East))
+    itParam('When Rover facing ${value.initial} and turn right, ends facing ${value.final}', 
+    [{ initial: DIRECTIONS.North, final: DIRECTIONS.West },
+     { initial: DIRECTIONS.West, final: DIRECTIONS.South },
+     { initial: DIRECTIONS.South, final: DIRECTIONS.East}], (done, value) => {
+        roverTurningRight(value.initial, faces(value.final));
+        done();
     });
 
     function roverTurningRight(initialDirection, finalDirection) {

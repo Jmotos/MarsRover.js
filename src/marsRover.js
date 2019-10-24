@@ -14,7 +14,7 @@ class MarsRover {
 };
 
 const DIRECTIONS = {
-    North: 'N', West: 'W', South: 'S' , East: 'E'
+    North: 'North', West: 'West', South: 'South' , East: 'East'
 }, COMMANDS = {
     Left: 'L', Right: 'R'
 };
