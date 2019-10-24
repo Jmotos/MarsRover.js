@@ -3,6 +3,9 @@ class MarsRover {
         this.direction = direction || DIRECTIONS.North;
     }
     sendCommand(command) {
+        if (this.direction === DIRECTIONS.West) {
+            return new MarsRover(DIRECTIONS.South);
+        }
         return new MarsRover(DIRECTIONS.West);
     }
 };

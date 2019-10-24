@@ -9,6 +9,9 @@ describe('Unit test batery of Mars Rover', () => {
     it('when Rover facing North and turn right, ends facing West', () => {
         roverTurningRight(DIRECTIONS.North, faces(DIRECTIONS.West))
     });
+    it('when Rover facing West and turn right, ends facing South', () => {
+        roverTurningRight(DIRECTIONS.West, faces(DIRECTIONS.South))
+    });
 
     function roverTurningRight(initialDirection, finalDirection) {
         let marsRover = new MarsRover(initialDirection),
