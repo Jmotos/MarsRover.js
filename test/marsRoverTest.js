@@ -1,7 +1,8 @@
 const chai = require('chai'),
     should = chai.should(),
     MarsRover = require('../src/marsRover').MarsRover,
-    DIRECTIONS = require('../src/marsRover').DIRECTIONS;
+    DIRECTIONS = require('../src/marsRover').DIRECTIONS,
+    COMMANDS = require('../src/marsRover').COMMANDS;
 
 describe('Unit test batery of Mars Rover', () => {
 
@@ -11,7 +12,7 @@ describe('Unit test batery of Mars Rover', () => {
 
     function roverTurningRight(initialDirection, finalDirection) {
         let marsRover = new MarsRover(initialDirection),
-            result = marsRover.sendSignal('R');
+            result = marsRover.sendCommand(COMMANDS.Right);
 
         result.should.be.eql(new MarsRover(finalDirection));
     }
