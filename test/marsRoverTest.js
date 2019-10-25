@@ -10,14 +10,15 @@ describe('Unit test batery of Mars Rover', () => {
     itParam('When Rover facing ${value.initial} and turn right, ends facing ${value.final}', 
     [{ initial: DIRECTIONS.North, final: DIRECTIONS.West },
      { initial: DIRECTIONS.West, final: DIRECTIONS.South },
-     { initial: DIRECTIONS.South, final: DIRECTIONS.East},
-     { initial: DIRECTIONS.East, final: DIRECTIONS.North}], (done, value) => {
+     { initial: DIRECTIONS.South, final: DIRECTIONS.East },
+     { initial: DIRECTIONS.East, final: DIRECTIONS.North }], (done, value) => {
         roverTurning(COMMANDS.Right, value.initial, faces(value.final));
         done();
     });
 
     itParam('When Rover facing ${value.initial} and turn left, ends facing ${value.final}', 
-    [{ initial: DIRECTIONS.North, final: DIRECTIONS.East }], (done, value) => {
+    [{ initial: DIRECTIONS.North, final: DIRECTIONS.East },
+     { initial: DIRECTIONS.East, final: DIRECTIONS.South }], (done, value) => {
         roverTurning(COMMANDS.Left, value.initial, faces(value.final));
         done();
     });

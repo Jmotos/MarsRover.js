@@ -46,6 +46,7 @@ class Direction {
     DIRECTIONS.West.setRight(DIRECTIONS.South);
     DIRECTIONS.South.setRight(DIRECTIONS.East);
     DIRECTIONS.East.setRight(DIRECTIONS.North);
+    DIRECTIONS.East.setLeft(DIRECTIONS.South);
 })()
 
 Object.freeze(DIRECTIONS);
