@@ -12,24 +12,19 @@ describe('Unit test batery of Mars Rover', () => {
      { initial: DIRECTIONS.West, final: DIRECTIONS.South },
      { initial: DIRECTIONS.South, final: DIRECTIONS.East},
      { initial: DIRECTIONS.East, final: DIRECTIONS.North}], (done, value) => {
-        roverTurningRight(value.initial, faces(value.final));
+        roverTurning(COMMANDS.Right, value.initial, faces(value.final));
         done();
     });
 
     itParam('When Rover facing ${value.initial} and turn left, ends facing ${value.final}', 
     [{ initial: DIRECTIONS.North, final: DIRECTIONS.East }], (done, value) => {
-        roverTurningLeft(value.initial, faces(value.final));
+        roverTurning(COMMANDS.Left, value.initial, faces(value.final));
         done();
     });
 
-    function roverTurningRight(initialDirection, finalDirection) {
+    function roverTurning(command, initialDirection, finalDirection) {
         let marsRover = new MarsRover(initialDirection),
-            result = marsRover.sendCommand(COMMANDS.Right);
-        result.should.be.eql(new MarsRover(finalDirection));
-    }
-    function roverTurningLeft(initialDirection, finalDirection) {
-        let marsRover = new MarsRover(initialDirection),
-            result = marsRover.sendCommand(COMMANDS.Left);
+            result = marsRover.sendCommand(command);
         result.should.be.eql(new MarsRover(finalDirection));
     }
 
