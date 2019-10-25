@@ -22,11 +22,9 @@ class Direction {
     toString() {
         return this.name;
     }
-    setRight(right) {
-        this.right = right;
-    }
-    setLeft(left) {
+    setTurns(left, right) {
         this.left = left;
+        this.right = right;
     }
     turnRight() {
         return this.right;
@@ -37,18 +35,17 @@ class Direction {
 }
 
 (function initializeDirectionsFactory() {
+    function left(left) { return left; }
+    function right(right) { return right; }
+
     DIRECTIONS.North = new Direction("North");
     DIRECTIONS.West = new Direction("West");
     DIRECTIONS.South = new Direction("South");
     DIRECTIONS.East = new Direction("East");
-    DIRECTIONS.North.setRight(DIRECTIONS.West);
-    DIRECTIONS.North.setLeft(DIRECTIONS.East);
-    DIRECTIONS.West.setRight(DIRECTIONS.South);
-    DIRECTIONS.West.setLeft(DIRECTIONS.North);
-    DIRECTIONS.South.setRight(DIRECTIONS.East);
-    DIRECTIONS.South.setLeft(DIRECTIONS.West);
-    DIRECTIONS.East.setRight(DIRECTIONS.North);
-    DIRECTIONS.East.setLeft(DIRECTIONS.South);
+    DIRECTIONS.North.setTurns(left(DIRECTIONS.East), right(DIRECTIONS.West));
+    DIRECTIONS.West.setTurns(left(DIRECTIONS.North), right(DIRECTIONS.South));
+    DIRECTIONS.South.setTurns(left(DIRECTIONS.West), right(DIRECTIONS.East));
+    DIRECTIONS.East.setTurns(left(DIRECTIONS.South), right(DIRECTIONS.North));
 })()
 
 Object.freeze(DIRECTIONS);
