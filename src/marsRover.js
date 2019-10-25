@@ -3,6 +3,9 @@ class MarsRover {
         this.direction = direction || DIRECTIONS.North;
     }
     sendCommand(command) {
+        if (command === COMMANDS.Left) {
+            return new MarsRover(this.direction.turnLeft());
+        }
         return new MarsRover(this.direction.turnRight());
     }
 };
@@ -22,8 +25,14 @@ class Direction {
     setRight(right) {
         this.right = right;
     }
+    setLeft(left) {
+        this.left = left;
+    }
     turnRight() {
         return this.right;
+    }
+    turnLeft() {
+        return this.left;
     }
 }
 
@@ -33,6 +42,7 @@ class Direction {
     DIRECTIONS.South = new Direction("South");
     DIRECTIONS.East = new Direction("East");
     DIRECTIONS.North.setRight(DIRECTIONS.West);
+    DIRECTIONS.North.setLeft(DIRECTIONS.East);
     DIRECTIONS.West.setRight(DIRECTIONS.South);
     DIRECTIONS.South.setRight(DIRECTIONS.East);
     DIRECTIONS.East.setRight(DIRECTIONS.North);
