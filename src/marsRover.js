@@ -1,4 +1,6 @@
-const CommandTranslator = require('./commandTranslator'),
+const Direction = require('./directions').Direction,
+	DIRECTIONS = require('./directions').DIRECTIONS,
+	CommandTranslator = require('./commandTranslator'),
 	CommandGenericTranslator = new CommandTranslator.CommandTranslator(),
 	commandStringTranslator = new CommandTranslator.CommandStringTranslator();
 
@@ -19,76 +21,34 @@ class MarsRover {
 			.translate(commands)
 			.reduce((result, command) => {
 				if (command === COMMANDS.Left) {
-					return new MarsRoverStringCommandFactory(
+					return MarsRoverCommandFactory.getMarsRoverStringCommand(
 						result.direction.turnLeft()
 					);
 				}
-				return new MarsRoverStringCommandFactory(
+				return MarsRoverCommandFactory.getMarsRoverStringCommand(
 					result.direction.turnRight()
 				);
 			}, this);
 	}
 }
 
-class MarsRoverStringCommandFactory {
+class MarsRoverCommandFactory {
 	/**
 	 * @param {Direction} direction
-	 * @returns MarsRover
+	 * @returns {MarsRover}
 	 */
-	constructor(direction) {
+	static getMarsRoverStringCommand(direction) {
 		return new MarsRover(direction, commandStringTranslator);
 	}
 }
 
-class Direction {
-	/**
-	 * @param {String} name
-	 */
-	constructor(name) {
-		this.name = name;
-	}
-	toString() {
-		return this.name;
-	}
-	/**
-	 * @param {Direction} left
-	 * @param {Direction} right
-	 */
-	setTurns(left, right) {
-		this.left = left;
-		this.right = right;
-	}
-	turnRight() {
-		return this.right;
-	}
-	turnLeft() {
-		return this.left;
-	}
-}
-
-const DIRECTIONS = {
-		North: new Direction('North'),
-		West: new Direction('West'),
-		South: new Direction('South'),
-		East: new Direction('East')
-	},
-	COMMANDS = {
-		Left: 'L',
-		Right: 'R'
-	};
-
-(function initializeDirectionsFactory() {
-	DIRECTIONS.North.setTurns(DIRECTIONS.East, DIRECTIONS.West);
-	DIRECTIONS.West.setTurns(DIRECTIONS.North, DIRECTIONS.South);
-	DIRECTIONS.South.setTurns(DIRECTIONS.West, DIRECTIONS.East);
-	DIRECTIONS.East.setTurns(DIRECTIONS.South, DIRECTIONS.North);
-})();
-
-Object.freeze(DIRECTIONS);
+const COMMANDS = {
+	Left: 'L',
+	Right: 'R'
+};
+Object.freeze(COMMANDS);
 
 module.exports = {
-	MarsRover: MarsRoverStringCommandFactory,
-	DIRECTIONS: DIRECTIONS,
-	COMMANDS: COMMANDS,
-	Direction: Direction
+	MarsRover: MarsRoverCommandFactory.getMarsRoverStringCommand,
+	COMMANDS: COMMANDS
 };

@@ -1,10 +1,10 @@
 const chai = require('chai'),
 	itParam = require('mocha-param'),
 	should = chai.should(),
-	MarsRover = require('../src/marsRover').MarsRover,
-	DIRECTIONS = require('../src/marsRover').DIRECTIONS,
+	GetMarsRover = require('../src/marsRover').MarsRover,
+	DIRECTIONS = require('../src/directions').DIRECTIONS,
 	COMMANDS = require('../src/marsRover').COMMANDS,
-	Direction = require('../src/marsRover').Direction;
+	Direction = require('../src/directions').Direction;
 
 describe('Unit test batery of Mars Rover', () => {
 	/**
@@ -54,8 +54,8 @@ describe('Unit test batery of Mars Rover', () => {
 	 * @param {Direction} finalDirection
 	 */
 	function roverTurning(command, initialDirection, finalDirection) {
-		let marsRover = new MarsRover(initialDirection),
+		let marsRover = GetMarsRover(initialDirection),
 			result = marsRover.sendCommand(command);
-		result.should.be.eql(new MarsRover(finalDirection));
+		result.should.be.eql(GetMarsRover(finalDirection));
 	}
 });
