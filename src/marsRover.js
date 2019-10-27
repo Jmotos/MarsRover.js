@@ -1,7 +1,7 @@
 const Direction = require('./directions').Direction,
 	DIRECTIONS = require('./directions').DIRECTIONS,
 	CommandTranslator = require('./commandTranslator'),
-	CommandGenericTranslator = new CommandTranslator.CommandTranslator(),
+	CommandGenericTranslator = CommandTranslator.CommandTranslator,
 	commandStringTranslator = new CommandTranslator.CommandStringTranslator();
 
 class MarsRover {
@@ -17,27 +17,25 @@ class MarsRover {
 	 * @param {String} commands
 	 */
 	sendCommand(commands) {
+		function applyCommands(result, command) {
+			if (command === COMMANDS.Left) {
+				return MarsRoverFactory.getRover(result.direction.turnLeft());
+			}
+			return MarsRoverFactory.getRover(result.direction.turnRight());
+		}
+
 		return this.commandTranslator
 			.translate(commands)
-			.reduce((result, command) => {
-				if (command === COMMANDS.Left) {
-					return MarsRoverCommandFactory.getMarsRoverStringCommand(
-						result.direction.turnLeft()
-					);
-				}
-				return MarsRoverCommandFactory.getMarsRoverStringCommand(
-					result.direction.turnRight()
-				);
-			}, this);
+			.reduce(applyCommands, this);
 	}
 }
 
-class MarsRoverCommandFactory {
+class MarsRoverFactory {
 	/**
 	 * @param {Direction} direction
 	 * @returns {MarsRover}
 	 */
-	static getMarsRoverStringCommand(direction) {
+	static getRover(direction) {
 		return new MarsRover(direction, commandStringTranslator);
 	}
 }
@@ -49,6 +47,6 @@ const COMMANDS = {
 Object.freeze(COMMANDS);
 
 module.exports = {
-	MarsRover: MarsRoverCommandFactory.getMarsRoverStringCommand,
+	MarsRover: MarsRoverFactory.getRover,
 	COMMANDS: COMMANDS
 };
