@@ -1,5 +1,6 @@
 const Direction = require('./directions').Direction,
 	DIRECTIONS = require('./directions').DIRECTIONS,
+	Position = require('./position'),
 	CommandTranslator = require('./commandTranslator'),
 	CommandGenericTranslator = CommandTranslator.CommandTranslator,
 	commandStringTranslator = new CommandTranslator.CommandStringTranslator();
@@ -7,10 +8,12 @@ const Direction = require('./directions').Direction,
 class MarsRover {
 	/**
 	 * @param {Direction} direction
+	 * @param {Position} position
 	 * @param {CommandGenericTranslator} commandTranslator
 	 */
-	constructor(direction, commandTranslator) {
-		this.direction = direction || DIRECTIONS.North;
+	constructor(direction, position, commandTranslator) {
+		this.direction = direction;
+		this.position = position;
 		this.commandTranslator = commandTranslator;
 	}
 	/**
@@ -18,10 +21,22 @@ class MarsRover {
 	 */
 	sendCommand(commands) {
 		function applyCommands(result, command) {
-			if (command === COMMANDS.Left) {
-				return MarsRoverFactory.getRover(result.direction.turnLeft());
+			if (command === COMMANDS.Forward) {
+				return MarsRoverFactory.getRover(
+					result.direction,
+					result.position.moveForward()
+				);
 			}
-			return MarsRoverFactory.getRover(result.direction.turnRight());
+			if (command === COMMANDS.Left) {
+				return MarsRoverFactory.getRover(
+					result.direction.turnLeft(),
+					result.position
+				);
+			}
+			return MarsRoverFactory.getRover(
+				result.direction.turnRight(),
+				result.position
+			);
 		}
 
 		return this.commandTranslator
@@ -33,16 +48,23 @@ class MarsRover {
 class MarsRoverFactory {
 	/**
 	 * @param {Direction} direction
+	 * @param {Position} position
 	 * @returns {MarsRover}
 	 */
-	static getRover(direction) {
-		return new MarsRover(direction, commandStringTranslator);
+	static getRover(direction, position) {
+		return new MarsRover(
+			direction || DIRECTIONS.North,
+			position || new Position(0, 0),
+			commandStringTranslator
+		);
 	}
 }
 
 const COMMANDS = {
 	Left: 'L',
-	Right: 'R'
+	Right: 'R',
+	Forward: 'F',
+	Backward: 'B'
 };
 Object.freeze(COMMANDS);
 
