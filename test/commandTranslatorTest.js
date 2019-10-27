@@ -1,7 +1,7 @@
 const chai = require('chai'),
 	should = chai.should(),
 	CommandTranslator = require('../src/commandTranslator'),
-	COMMANDS = require('../src/marsRover').COMMANDS;
+	COMMANDS = require('../src/commands').COMMANDS;
 
 describe('Unit test batery of Command Translator', () => {
 	it('Translate String with one command to that command', () => {

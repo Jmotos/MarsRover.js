@@ -3,7 +3,7 @@ const chai = require('chai'),
 	should = chai.should(),
 	GetMarsRover = require('../src/marsRover').MarsRover,
 	DIRECTIONS = require('../src/directions').DIRECTIONS,
-	COMMANDS = require('../src/marsRover').COMMANDS,
+	COMMANDS = require('../src/commands').COMMANDS,
 	Direction = require('../src/directions').Direction,
 	Position = require('../src/position');
 
@@ -21,11 +21,10 @@ describe('Unit test batery of Mars Rover', () => {
 			{ initial: DIRECTIONS.East, final: DIRECTIONS.North }
 		],
 		(done, value) => {
-			roverTurning(COMMANDS.Right, value.initial, value.final);
+			roverTurning(COMMANDS.Right.toString(), value.initial, value.final);
 			done();
 		}
 	);
-
 	/**
 	 * @param {() => void} done
 	 * @param {{ initial: Direction; final: Direction; }} value
@@ -39,16 +38,14 @@ describe('Unit test batery of Mars Rover', () => {
 			{ initial: DIRECTIONS.West, final: DIRECTIONS.North }
 		],
 		(done, value) => {
-			roverTurning(COMMANDS.Left, value.initial, value.final);
+			roverTurning(COMMANDS.Left.toString(), value.initial, value.final);
 			done();
 		}
 	);
-
 	it('When Rover recives some commands, it applies all of them', () => {
 		let commands = 'LL';
 		roverTurning(commands, DIRECTIONS.North, DIRECTIONS.South);
 	});
-
 	/**
 	 * @param {() => void} done
 	 * @param {{ initial: Direction; final: Direction; }} value
@@ -84,11 +81,10 @@ describe('Unit test batery of Mars Rover', () => {
 					direction: value.final.direction,
 					position: new Position(value.final.x, value.final.y)
 				};
-			roverMoving(COMMANDS.Forward, initialRover, finalRover);
+			roverMoving(COMMANDS.Forward.toString(), initialRover, finalRover);
 			done();
 		}
 	);
-
 	/**
 	 * @param {String} command
 	 * @param {Direction} initial

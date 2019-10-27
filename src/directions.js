@@ -19,12 +19,6 @@ class Direction {
 		this.left = left;
 		this.right = right;
 	}
-	turnRight() {
-		return this.right;
-	}
-	turnLeft() {
-		return this.left;
-	}
 	/**
 	 * @param {Position} position
 	 */
