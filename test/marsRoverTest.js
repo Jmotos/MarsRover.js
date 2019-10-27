@@ -54,7 +54,9 @@ describe('Unit test batery of Mars Rover', () => {
 	 * @param {{ initial: Direction; final: Direction; }} value
 	 */
 	itParam(
-		'When Rover facing ${value.initial} in position moves Forward, ends in position ${value.final}',
+		'When Rover facing ${value.initial.direction} in position ' +
+			'(${value.initial.x}, ${value.initial.y}) moves Forward, ' +
+			'ends in position (${value.final.x}, ${value.final.y})',
 		[
 			{
 				initial: { direction: DIRECTIONS.North, x: 0, y: 0 },

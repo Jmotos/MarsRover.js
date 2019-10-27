@@ -1,9 +1,12 @@
+const Position = require('./position');
+
 class Direction {
 	/**
 	 * @param {String} name
 	 */
-	constructor(name) {
+	constructor(name, forward) {
 		this.name = name;
+		this.forward = forward;
 	}
 	toString() {
 		return this.name;
@@ -22,13 +25,22 @@ class Direction {
 	turnLeft() {
 		return this.left;
 	}
+	/**
+	 * @param {Position} position
+	 */
+	moveForward(position) {
+		return new Position(
+			position.x + this.forward.x,
+			position.y + this.forward.y
+		);
+	}
 }
 
 const DIRECTIONS = {
-	North: new Direction('North'),
-	West: new Direction('West'),
-	South: new Direction('South'),
-	East: new Direction('East')
+	North: new Direction('North', { x: 1, y: 0 }),
+	West: new Direction('West', { x: 0, y: -1 }),
+	South: new Direction('South', { x: -1, y: 0 }),
+	East: new Direction('East', { x: 0, y: 1 })
 };
 
 (function initializeDirections() {

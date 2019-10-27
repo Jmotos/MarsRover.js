@@ -24,7 +24,7 @@ class MarsRover {
 			if (command === COMMANDS.Forward) {
 				return MarsRoverFactory.getRover(
 					result.direction,
-					result.position.moveForward(result.direction)
+					result.direction.moveForward(result.position)
 				);
 			}
 			if (command === COMMANDS.Left) {
