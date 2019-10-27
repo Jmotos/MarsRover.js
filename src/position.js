@@ -17,6 +17,9 @@ class Position {
 		if (direction === DIRECTIONS.West) {
 			return new Position(this.x, this.y - 1);
 		}
+		if (direction === DIRECTIONS.South) {
+			return new Position(this.x - 1, this.y);
+		}
 		return new Position(this.x + 1, this.y);
 	}
 }
