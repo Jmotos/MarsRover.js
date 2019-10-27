@@ -67,6 +67,10 @@ describe('Unit test batery of Mars Rover', () => {
 			{
 				initial: { direction: DIRECTIONS.South, x: 0, y: 0 },
 				final: { direction: DIRECTIONS.South, x: -1, y: 0 }
+			},
+			{
+				initial: { direction: DIRECTIONS.East, x: 0, y: 0 },
+				final: { direction: DIRECTIONS.East, x: 0, y: 1 }
 			}
 		],
 		(done, value) => {
