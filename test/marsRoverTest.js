@@ -60,6 +60,17 @@ describe('Unit test batery of Mars Rover', () => {
 			};
 		roverMoving(COMMANDS.Forward, initialRover, finalRover);
 	});
+	it('When Rover facing West in position (x, y) moves Forward, ends in position (x, y-1)', () => {
+		let initialRover = {
+				direction: DIRECTIONS.West,
+				position: new Position(0, 0)
+			},
+			finalRover = {
+				direction: DIRECTIONS.West,
+				position: new Position(0, -1)
+			};
+		roverMoving(COMMANDS.Forward, initialRover, finalRover);
+	});
 
 	/**
 	 * @param {String} command
