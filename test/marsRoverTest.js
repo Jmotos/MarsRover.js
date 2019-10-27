@@ -43,8 +43,13 @@ describe('Unit test batery of Mars Rover', () => {
 		}
 	);
 
+	it('When Rover recives some commands, it applies all of them', () => {
+		let commands = 'LL';
+		roverTurning(commands, DIRECTIONS.North, DIRECTIONS.South);
+	});
+
 	/**
-	 * @param {string} command
+	 * @param {String} command
 	 * @param {Direction} initialDirection
 	 * @param {Direction} finalDirection
 	 */

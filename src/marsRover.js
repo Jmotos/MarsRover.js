@@ -1,18 +1,42 @@
+const CommandTranslator = require('./commandTranslator'),
+	CommandGenericTranslator = new CommandTranslator.CommandTranslator(),
+	commandStringTranslator = new CommandTranslator.CommandStringTranslator();
+
 class MarsRover {
 	/**
 	 * @param {Direction} direction
+	 * @param {CommandGenericTranslator} commandTranslator
 	 */
-	constructor(direction) {
+	constructor(direction, commandTranslator) {
 		this.direction = direction || DIRECTIONS.North;
+		this.commandTranslator = commandTranslator;
 	}
 	/**
-	 * @param {String} command
+	 * @param {String} commands
 	 */
-	sendCommand(command) {
-		if (command === COMMANDS.Left) {
-			return new MarsRover(this.direction.turnLeft());
-		}
-		return new MarsRover(this.direction.turnRight());
+	sendCommand(commands) {
+		return this.commandTranslator
+			.translate(commands)
+			.reduce((result, command) => {
+				if (command === COMMANDS.Left) {
+					return new MarsRoverStringCommandFactory(
+						result.direction.turnLeft()
+					);
+				}
+				return new MarsRoverStringCommandFactory(
+					result.direction.turnRight()
+				);
+			}, this);
+	}
+}
+
+class MarsRoverStringCommandFactory {
+	/**
+	 * @param {Direction} direction
+	 * @returns MarsRover
+	 */
+	constructor(direction) {
+		return new MarsRover(direction, commandStringTranslator);
 	}
 }
 
@@ -63,7 +87,7 @@ const DIRECTIONS = {
 Object.freeze(DIRECTIONS);
 
 module.exports = {
-	MarsRover: MarsRover,
+	MarsRover: MarsRoverStringCommandFactory,
 	DIRECTIONS: DIRECTIONS,
 	COMMANDS: COMMANDS,
 	Direction: Direction

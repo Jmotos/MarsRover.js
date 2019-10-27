@@ -1,5 +1,13 @@
 class CommandTranslator {
 	/**
+	 * @param {any} commands
+	 */
+	translate(commands) {
+		return [];
+	}
+}
+class CommandStringTranslator extends CommandTranslator {
+	/**
 	 * @param {String} commands
 	 */
 	translate(commands) {
@@ -7,4 +15,7 @@ class CommandTranslator {
 	}
 }
 
-module.exports = CommandTranslator;
+module.exports = {
+	CommandTranslator: CommandTranslator,
+	CommandStringTranslator: CommandStringTranslator
+};

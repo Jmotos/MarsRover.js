@@ -5,13 +5,13 @@ const chai = require('chai'),
 
 describe('Unit test batery of Command Translator', () => {
 	it('Translate String with one command to that command', () => {
-		let commandTranslator = new CommandTranslator(),
+		let commandTranslator = new CommandTranslator.CommandStringTranslator(),
 			commandsList = commandTranslator.translate('L'),
 			result = [COMMANDS.Left];
 		commandsList.should.be.eql(result);
 	});
 	it('Translate String with some commands to those commands', () => {
-		let commandTranslator = new CommandTranslator(),
+		let commandTranslator = new CommandTranslator.CommandStringTranslator(),
 			commandsList = commandTranslator.translate('LL'),
 			result = [COMMANDS.Left, COMMANDS.Left];
 		commandsList.should.be.eql(result);
