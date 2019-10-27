@@ -1,4 +1,3 @@
-//@ts-check
 class MarsRover {
 	/**
 	 * @param {Direction} direction
