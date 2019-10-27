@@ -49,52 +49,54 @@ describe('Unit test batery of Mars Rover', () => {
 		roverTurning(commands, DIRECTIONS.North, DIRECTIONS.South);
 	});
 
-	it('When Rover facing North in position (x, y) moves Forward, ends in position (x+1, y)', () => {
-		let initialRover = {
-				direction: DIRECTIONS.North,
-				position: new Position(0, 0)
+	/**
+	 * @param {() => void} done
+	 * @param {{ initial: Direction; final: Direction; }} value
+	 */
+	itParam(
+		'When Rover facing ${value.initial} in position moves Forward, ends in position ${value.final}',
+		[
+			{
+				initial: { direction: DIRECTIONS.North, x: 0, y: 0 },
+				final: { direction: DIRECTIONS.North, x: 1, y: 0 }
 			},
-			finalRover = {
-				direction: DIRECTIONS.North,
-				position: new Position(1, 0)
-			};
-		roverMoving(COMMANDS.Forward, initialRover, finalRover);
-	});
-	it('When Rover facing West in position (x, y) moves Forward, ends in position (x, y-1)', () => {
-		let initialRover = {
-				direction: DIRECTIONS.West,
-				position: new Position(0, 0)
-			},
-			finalRover = {
-				direction: DIRECTIONS.West,
-				position: new Position(0, -1)
-			};
-		roverMoving(COMMANDS.Forward, initialRover, finalRover);
-	});
+			{
+				initial: { direction: DIRECTIONS.West, x: 0, y: 0 },
+				final: { direction: DIRECTIONS.West, x: 0, y: -1 }
+			}
+		],
+		(done, value) => {
+			let initialRover = {
+					direction: value.initial.direction,
+					position: new Position(value.initial.x, value.initial.y)
+				},
+				finalRover = {
+					direction: value.final.direction,
+					position: new Position(value.final.x, value.final.y)
+				};
+			roverMoving(COMMANDS.Forward, initialRover, finalRover);
+			done();
+		}
+	);
 
 	/**
 	 * @param {String} command
-	 * @param {Direction} initialDirection
-	 * @param {Direction} finalDirection
+	 * @param {Direction} initial
+	 * @param {Direction} final
 	 */
-	function roverTurning(command, initialDirection, finalDirection) {
-		let marsRover = GetMarsRover(initialDirection, null),
+	function roverTurning(command, initial, final) {
+		let marsRover = GetMarsRover(initial, null),
 			result = marsRover.sendCommand(command);
-		result.should.be.eql(GetMarsRover(finalDirection, null));
+		result.should.be.eql(GetMarsRover(final, null));
 	}
 	/**
 	 * @param {String} command
-	 * @param {{direction: Direction, position: Position}} initialRover
-	 * @param {{direction: Direction, position: Position}} finalRover
+	 * @param {{direction: Direction, position: Position}} initial
+	 * @param {{direction: Direction, position: Position}} final
 	 */
-	function roverMoving(command, initialRover, finalRover) {
-		let marsRover = GetMarsRover(
-				initialRover.direction,
-				initialRover.position
-			),
-			result = marsRover.sendCommand(COMMANDS.Forward);
-		result.should.be.eql(
-			GetMarsRover(finalRover.direction, finalRover.position)
-		);
+	function roverMoving(command, initial, final) {
+		let marsRover = GetMarsRover(initial.direction, initial.position),
+			result = marsRover.sendCommand(command);
+		result.should.be.eql(GetMarsRover(final.direction, final.position));
 	}
 });
