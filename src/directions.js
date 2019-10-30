@@ -4,12 +4,10 @@ class Direction {
 	/**
 	 * @param {String} name
 	 * @param {{ x: number; y: number; }} forward
-	 * @param {{ x: number; y: number; }} backward
 	 */
-	constructor(name, forward, backward) {
+	constructor(name, forward) {
 		this.name = name;
 		this.forward = forward;
-		this.backward = backward;
 	}
 	toString() {
 		return this.name;
@@ -36,14 +34,14 @@ class Direction {
 	 */
 	moveBackward(position) {
 		return new Position(
-			position.x + this.backward.x,
-			position.y + this.backward.y
+			position.x - this.forward.x,
+			position.y - this.forward.y
 		);
 	}
 }
 
 const DIRECTIONS = {
-	North: new Direction('North', { x: 1, y: 0 }, { x: -1, y: 0 }),
+	North: new Direction('North', { x: 1, y: 0 }),
 	West: new Direction('West', { x: 0, y: -1 }),
 	South: new Direction('South', { x: -1, y: 0 }),
 	East: new Direction('East', { x: 0, y: 1 })
