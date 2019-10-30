@@ -86,6 +86,33 @@ describe('Unit test batery of Mars Rover', () => {
 		}
 	);
 	/**
+	 * @param {() => void} done
+	 * @param {{ initial: Direction; final: Direction; }} value
+	 */
+	itParam(
+		'When Rover facing ${value.initial.direction} in position ' +
+			'(${value.initial.x}, ${value.initial.y}) moves Backward, ' +
+			'ends in position (${value.final.x}, ${value.final.y})',
+		[
+			{
+				initial: { direction: DIRECTIONS.North, x: 0, y: 0 },
+				final: { direction: DIRECTIONS.North, x: -1, y: 0 }
+			}
+		],
+		(done, value) => {
+			let initialRover = {
+					direction: value.initial.direction,
+					position: new Position(value.initial.x, value.initial.y)
+				},
+				finalRover = {
+					direction: value.final.direction,
+					position: new Position(value.final.x, value.final.y)
+				};
+			roverMoving(COMMANDS.Backward.toString(), initialRover, finalRover);
+			done();
+		}
+	);
+	/**
 	 * @param {String} command
 	 * @param {Direction} initial
 	 * @param {Direction} final

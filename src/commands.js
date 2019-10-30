@@ -28,7 +28,12 @@ const COMMANDS = {
 			newPosition: direction.moveForward(position)
 		};
 	}),
-	Backward: new Command('B', null)
+	Backward: new Command('B', (direction, position) => {
+		return {
+			newDirection: direction,
+			newPosition: direction.moveBackward(position)
+		};
+	})
 };
 Object.freeze(COMMANDS);
 
