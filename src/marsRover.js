@@ -1,7 +1,6 @@
 const Direction = require('./directions').Direction,
 	DIRECTIONS = require('./directions').DIRECTIONS,
 	Position = require('./position'),
-	COMMANDS = require('./commands').COMMANDS,
 	CommandTranslator = require('./commandTranslator'),
 	CommandGenericTranslator = CommandTranslator.CommandTranslator,
 	commandStringTranslator = new CommandTranslator.CommandStringTranslator();

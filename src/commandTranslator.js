@@ -1,5 +1,4 @@
-const COMMANDS = require('./commands').COMMANDS,
-	Command = require('./commands').Command;
+const COMMANDS = require('./commands').COMMANDS;
 
 class CommandTranslator {
 	/**
