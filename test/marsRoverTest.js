@@ -1,7 +1,7 @@
 const chai = require('chai'),
 	itParam = require('mocha-param'),
 	should = chai.should(),
-	GetMarsRover = require('../src/marsRover').MarsRover,
+	MarsRover = require('../src/marsRover'),
 	DIRECTIONS = require('../src/directions').DIRECTIONS,
 	COMMANDS = require('../src/commands').COMMANDS,
 	Direction = require('../src/directions').Direction,
@@ -25,6 +25,7 @@ describe('Unit test batery of Mars Rover', () => {
 			done();
 		}
 	);
+
 	/**
 	 * @param {() => void} done
 	 * @param {{ initial: Direction; final: Direction; }} value
@@ -42,10 +43,12 @@ describe('Unit test batery of Mars Rover', () => {
 			done();
 		}
 	);
+
 	it('When Rover recives some commands, it applies all of them', () => {
 		let commands = 'LL';
 		roverTurning(commands, DIRECTIONS.North, DIRECTIONS.South);
 	});
+
 	/**
 	 * @param {() => void} done
 	 * @param {{ initial: Direction; final: Direction; }} value
@@ -85,6 +88,7 @@ describe('Unit test batery of Mars Rover', () => {
 			done();
 		}
 	);
+
 	/**
 	 * @param {() => void} done
 	 * @param {{ initial: Direction; final: Direction; }} value
@@ -112,24 +116,26 @@ describe('Unit test batery of Mars Rover', () => {
 			done();
 		}
 	);
+
 	/**
 	 * @param {String} command
 	 * @param {Direction} initial
 	 * @param {Direction} final
 	 */
 	function roverTurning(command, initial, final) {
-		let marsRover = GetMarsRover(initial, null),
+		let marsRover = new MarsRover(initial, null),
 			result = marsRover.sendCommand(command);
-		result.should.be.eql(GetMarsRover(final, null));
+		result.should.be.eql(new MarsRover(final, null));
 	}
+
 	/**
 	 * @param {String} command
 	 * @param {{direction: Direction, position: Position}} initial
 	 * @param {{direction: Direction, position: Position}} final
 	 */
 	function roverMoving(command, initial, final) {
-		let marsRover = GetMarsRover(initial.direction, initial.position),
+		let marsRover = new MarsRover(initial.direction, initial.position),
 			result = marsRover.sendCommand(command);
-		result.should.be.eql(GetMarsRover(final.direction, final.position));
+		result.should.be.eql(new MarsRover(final.direction, final.position));
 	}
 });

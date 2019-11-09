@@ -11,7 +11,11 @@ class MarsRover {
 	 * @param {Position} position
 	 * @param {CommandGenericTranslator} commandTranslator
 	 */
-	constructor(direction, position, commandTranslator) {
+	constructor(
+		direction = DIRECTIONS.North,
+		position = new Position(0, 0),
+		commandTranslator = commandStringTranslator
+	) {
 		this.direction = direction;
 		this.position = position;
 		this.commandTranslator = commandTranslator;
@@ -29,7 +33,7 @@ class MarsRover {
 				result.direction,
 				result.position
 			);
-			return MarsRoverFactory.getRover(newDirection, newPosition);
+			return new MarsRover(newDirection, newPosition);
 		}
 
 		return this.commandTranslator
@@ -38,21 +42,4 @@ class MarsRover {
 	}
 }
 
-class MarsRoverFactory {
-	/**
-	 * @param {Direction} direction
-	 * @param {Position} position
-	 * @returns {MarsRover}
-	 */
-	static getRover(direction, position) {
-		return new MarsRover(
-			direction || DIRECTIONS.North,
-			position || new Position(0, 0),
-			commandStringTranslator
-		);
-	}
-}
-
-module.exports = {
-	MarsRover: MarsRoverFactory.getRover
-};
+module.exports = MarsRover;
