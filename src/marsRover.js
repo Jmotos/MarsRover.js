@@ -34,7 +34,7 @@ class MarsRover {
 				result.direction,
 				result.position
 			);
-			
+
 			return new MarsRover(newDirection, newPosition);
 		}
 
